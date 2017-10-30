@@ -15,7 +15,7 @@ const imagesLoaded = require('imagesloaded');
 @Component({
   selector: 'lightbox',
   template: `<div class="angular2_photoswipe" [id]="key" itemscope itemtype="http://schema.org/ImageGallery">
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" *ngFor="let image of getImages()">
+      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" *ngFor="let image of getImage()">
           <a href="{{image.largeUrl}}" itemprop="contentUrl" [attr.data-size]="image.width + 'x' + image.height" (click)="openImage(image)">
               <img src="{{image.thumbUrl}}" itemprop="thumbnail" alt="{{image.description}}" />
           </a>
@@ -98,6 +98,10 @@ export class Lightbox implements OnChanges {
 
   public getImages():Image[] {
     return this.lbService.getImages(this.key);
+  }
+
+  public getImage():Image[] {
+    return this.lbService.getImage(this.key)[0];
   }
 
   private openPhotoSwipe(img:Image, galleryDOM:any):boolean {
